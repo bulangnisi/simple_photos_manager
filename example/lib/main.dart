@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:simple_photos_manager/simple_photos_manager.dart';
 
 void main() => runApp(MyApp());
@@ -12,32 +9,43 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  List<SimplePhoto> _photos = [];
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    initPhotos();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await SimplePhotosManager.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
+  void initPhotos(){
+    var start = DateTime.now();
+    SimplePhotosManager.getAlbumPhotos(size: 300).then((res){
+      var diff = DateTime.now().difference(start).inMilliseconds;
+      print('init done in $diff ms');
+      setState(() {
+        _photos = res;
+      });
+    }).catchError((e){
+      print(e);
     });
+  }
+
+  void _showPhoto(BuildContext context, SimplePhoto photo){
+    SimplePhotosManager.getOriginPhotos(ids: [photo.id], size: 600).then((res){
+      if(res.length > 0){
+        showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return Dialog(
+              child: Image.memory(res[0].data, fit: BoxFit.cover),
+            );
+          }
+        );
+      }
+    }).catchError((e){
+      print(e);
+    });
+    
   }
 
   @override
@@ -45,12 +53,26 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Simple Photos Manager'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4
+          ), 
+          itemCount: _photos.length,
+          itemBuilder: (BuildContext context, int inx){
+            SimplePhoto photo = _photos[inx];
+            return GestureDetector(
+              onTap: () => _showPhoto(context, photo),
+              child: Image.memory(
+                _photos[inx].data,
+                fit: BoxFit.cover,
+              ),
+            );
+          }
         ),
       ),
     );
   }
 }
+

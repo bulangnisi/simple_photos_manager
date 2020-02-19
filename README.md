@@ -1,14 +1,31 @@
 # simple_photos_manager
 
-A new flutter plugin project.
+Easy and quick access to album resources plugin for IOS and Android
+简单快速获取相册资源插件，支持IOS和Android
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+IOS: plist.info 加入 NSPhotoLibraryUsageDescription
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+'''Dart
+/// Get all photos in the album
+/// 获取相册所有图片
+static Future<List<SimplePhoto>> getAlbumPhotos({int size = 100})
+
+/// Gets the image for the specified id
+/// 获取指定id的图片
+static Future<List<SimplePhoto>> getOriginPhotos({List<String> ids = const [], int size = 0})
+
+/// Image objects
+/// 图片对象
+class SimplePhoto {
+    final String id;      
+    final int inx;        
+    final int width;
+    final int height;
+    final Uint8List data; /// base64 data
+    ......
+'''
+
+## Example
+[example](https://github.com/bulangnisi/simple_photos_manager/blob/master/example/lib/main.dart)
