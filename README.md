@@ -7,7 +7,7 @@ Easy and quick access to album resources plugin for IOS and Android
 
 IOS: plist.info 加入 NSPhotoLibraryUsageDescription
 
-'''js
+```Flutter
 /// Get all photos in the album
 /// 获取相册所有图片
 /// size: Set the maximum value of the width or height of the image to this, and the other to scale down
@@ -31,7 +31,7 @@ class SimplePhoto {
     final int height;
     final Uint8List data; /// base64 data
     ......
-'''
+```
 
 ## Example
 [example](https://github.com/bulangnisi/simple_photos_manager/blob/master/example/lib/main.dart)
