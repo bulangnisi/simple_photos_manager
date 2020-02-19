@@ -7,13 +7,19 @@ Easy and quick access to album resources plugin for IOS and Android
 
 IOS: plist.info 加入 NSPhotoLibraryUsageDescription
 
-'''Dart
+'''Flutter
 /// Get all photos in the album
 /// 获取相册所有图片
+/// size: Set the maximum value of the width or height of the image to this, and the other to scale down
+/// size: 将图像的宽度或高度的最大值设为此值，另一个则按比例缩小
 static Future<List<SimplePhoto>> getAlbumPhotos({int size = 100})
 
 /// Gets the image for the specified id
 /// 获取指定id的图片
+/// ids: Query the image by id
+/// ids: 指定id查询图片
+/// size: Set the maximum value of the width or height of the image to this, and the other to scale down
+/// size: 将图像的宽度或高度的最大值设为此值，另一个则按比例缩小
 static Future<List<SimplePhoto>> getOriginPhotos({List<String> ids = const [], int size = 0})
 
 /// Image objects
