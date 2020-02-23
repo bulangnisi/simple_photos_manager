@@ -4,6 +4,8 @@ import Photos
 
 public class SwiftSimplePhotosManagerPlugin: NSObject, FlutterPlugin {
 
+  private let maxCount = 1000
+
   struct Img: Codable{
     let id: String
     let inx: Int
@@ -112,7 +114,7 @@ public class SwiftSimplePhotosManagerPlugin: NSObject, FlutterPlugin {
           if(imgs.count == photos.count){
               imgs = imgs.sorted {$0.inx < $1.inx}
               let encoder = JSONEncoder()
-              let res = try! encoder.encode(imgs)
+              let res = try! encoder.encode(imgs.filter {$0.inx < self.maxCount})
               result(String(data: res, encoding: .utf8)!)
           }
         })

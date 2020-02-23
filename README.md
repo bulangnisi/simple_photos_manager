@@ -25,6 +25,9 @@ simple_photos_manager: {
 /// 获取相册所有图片
 /// size: Set the maximum value of the width or height of the image to this, and the other to scale down
 /// size: 将图像的宽度或高度的最大值设为此值，另一个则按比例缩小
+/// PS: 由于android考虑支持低版本（最低为19），无法使用最新的Api去获取指定大小的缩略图
+///     而原本使用呢Bitmap做裁剪的效率太低，对于获取较多图片的情况下速度太慢，所以使用了较为旧的api
+///     直接获取了 96 * 96 版本的缩略图，所以当获取全部图片时，此处指定的size直接忽略了
 static Future<List<SimplePhoto>> getAlbumPhotos({int size = 100})
 
 /// Gets the image for the specified id
@@ -45,6 +48,10 @@ class SimplePhoto {
     final Uint8List data; /// base64 data
     ......
 ```
+
+## Remark
+The use scene of this plug-in is used for photo album with Flutter, so the maximum loading quantity is 1000
+本插件使用场景是配合Flutter做相册使用，所以加载最大数量为1000
 
 ## Example
 [example](https://github.com/bulangnisi/simple_photos_manager/blob/master/example/lib/main.dart)
