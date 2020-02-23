@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-// import 'package:simple_photos_manager/simple_photo.dart';
 import 'simple_photo.dart';
 export 'simple_photo.dart';
 

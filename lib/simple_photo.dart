@@ -11,12 +11,17 @@ class SimplePhoto {
 
   SimplePhoto(this.id, this.inx, this.width, this.height, this.data);
 
+  static Uint8List decode(String data){
+    data = data.replaceAll("\n", "").replaceAll("\t", "");
+    return base64.decode(data);
+  }
+
   SimplePhoto.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         inx = json['inx'],
         width = json['width'],
         height = json['height'],
-        data = base64.decode(json['data']);
+        data = decode(json['data']);//base64.decode(json['data']);
 
   Map<String, dynamic> toJson() =>
     <String, dynamic>{

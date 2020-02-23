@@ -43,12 +43,12 @@ public class SwiftSimplePhotosManagerPlugin: NSObject, FlutterPlugin {
     }
   }
 
-  func checkPhotoLibraryPermission(_ fn: @escaping () -> Void) {
+  private func checkPhotoLibraryPermission(_ fn: @escaping () -> Void) {
     switch PHPhotoLibrary.authorizationStatus() {
       // 未选择
       case .notDetermined:
-        PHPhotoLibrary.requestAuthorization({(req_status: PHAuthorizationStatus) in
-          if(req_status == .authorized){
+        PHPhotoLibrary.requestAuthorization({(status: PHAuthorizationStatus) in
+          if(status == .authorized){
             fn()
           }
         })
@@ -85,12 +85,12 @@ public class SwiftSimplePhotosManagerPlugin: NSObject, FlutterPlugin {
     return imgOptions
   }
 
-  func fetchAlbumPhotos(_ size: Int, _ result: @escaping FlutterResult){
+  private func fetchAlbumPhotos(_ size: Int, _ result: @escaping FlutterResult){
     let photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: getFetchOptions())
     self.processPhotos(photos, size, result)
   }
   
-  func fetchOriginPhotos(_ ids: [String], _ size: Int, _ result: @escaping FlutterResult){
+  private func fetchOriginPhotos(_ ids: [String], _ size: Int, _ result: @escaping FlutterResult){
     let photos = PHAsset.fetchAssets(withLocalIdentifiers: ids, options: getFetchOptions())
     self.processPhotos(photos, size, result)
   }
