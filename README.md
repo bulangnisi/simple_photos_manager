@@ -3,10 +3,23 @@
 <p>Easy and quick access to album resources plugin for IOS and Android</p>
 <p>简单快速获取相册资源插件，支持IOS和Android</p>
 
+## IOS
+plist.info 加入
+<key>NSPhotoLibraryUsageDescription</key>
+<string>请求访问相册</string>
+
+## Install
+<p>pubspec.yaml 中加入</p>
+
+```yaml
+simple_photos_manager: {
+  git: {
+    url: https://github.com/bulangnisi/simple_photos_manager.git
+  }
+}
+```
+
 ## Getting Started
-
-IOS: plist.info 加入 NSPhotoLibraryUsageDescription
-
 ```dart
 /// Get all photos in the album
 /// 获取相册所有图片
