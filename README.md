@@ -50,8 +50,8 @@ class SimplePhoto {
 ```
 
 ## Remark
-The use scene of this plug-in is used for photo album with Flutter, so the maximum loading quantity is 1000
-本插件使用场景是配合Flutter做相册使用，所以加载最大数量为1000
+<p>The use scene of this plug-in is used for photo album with Flutter, so the maximum loading quantity is 1000</p>
+<p>本插件使用场景是配合Flutter做相册使用，所以加载最大数量为1000</p>
 
 ## Example
 [example](https://github.com/bulangnisi/simple_photos_manager/blob/master/example/lib/main.dart)
