@@ -5,8 +5,11 @@
 
 ## IOS
 plist.info 加入
+
+```plist
 <key>NSPhotoLibraryUsageDescription</key>
 <string>请求访问相册</string>
+```
 
 ## Install
 <p>pubspec.yaml 中加入</p>
